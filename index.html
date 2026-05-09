@@ -13,15 +13,18 @@
           font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
           min-height: 100vh;
           display: flex;
-          justify-content: center;
+          flex-direction: column;
+          justify-content: flex-start;
           align-items: center;
-          padding: 20px;
+          padding: 30px 20px 20px;
         }
 
         .header {
           text-align: center;
           margin-bottom: 30px;
           animation: slideDown 0.8s ease-out;
+          width: 100%;
+          max-width: 600px;
         }
 
         .header h2 {
@@ -102,6 +105,28 @@
         button:active {
           transform: translateY(-1px);
           box-shadow: 0 8px 20px rgba(212, 165, 116, 0.3);
+        }
+
+        button.animate-press {
+          animation: pressShake 0.26s ease-in-out;
+        }
+
+        .number.animate-number {
+          animation: pulseNumber 0.26s ease-in-out;
+        }
+
+        @keyframes pressShake {
+          0% { transform: translateY(0); }
+          25% { transform: translateY(-5px) rotate(-2deg); }
+          50% { transform: translateY(2px) rotate(2deg); }
+          75% { transform: translateY(-3px) rotate(-1deg); }
+          100% { transform: translateY(0) rotate(0); }
+        }
+
+        @keyframes pulseNumber {
+          0% { transform: scale(1); }
+          40% { transform: scale(1.08); }
+          100% { transform: scale(1); }
         }
 
         @keyframes slideDown {
@@ -187,6 +212,15 @@
     let angka= 0;
     let tipe = 1;
     function tekan() {
+        const button = document.querySelector('button');
+        const numberEl = document.getElementById('number');
+        button.classList.add('animate-press');
+        numberEl.classList.add('animate-number');
+        setTimeout(() => {
+          button.classList.remove('animate-press');
+          numberEl.classList.remove('animate-number');
+        }, 260);
+
         angka = angka + 1;
 
         if (angka === 33) {
